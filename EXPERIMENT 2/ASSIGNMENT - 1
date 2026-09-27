@@ -1,1 +1,39 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.datasets import load_wine
 
+wine=load_wine()
+df=pd.DataFrame(wine.data,columns=wine.feature_names)
+df["target"]=wine.target
+print("--- First Five Rows ---")
+print(df.head())
+
+print("\n--- Dataset Information ---")
+print(df.info())
+
+print("\n --- Statistical Summary ---")
+print(df.describe())
+
+print("\n--- Missing Value ---")
+print(df.isnull().sum())
+
+print("\n--- Correlation Matrix ---")
+print(df.corr(numeric_only=True))
+
+plt.figure(figsize=[12,8])
+sns.heatmap(df.corr(numeric_only=True),annot=True,cmap="coolwarm")
+plt.title("Correlation Heatmap - Wine Dataset")
+plt.show()
+
+plt.figure(figsize=(15,8))
+sns.boxplot(data=df.drop(columns="target"))
+plt.xticks(rotation=90)
+plt.title("Boxplots of Wine Dataset Features")
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(7,5))
+sns.histplot(df["alcohol"],kde=True)
+plt.title("Distribution Of Alcohol")
+plt.show()
