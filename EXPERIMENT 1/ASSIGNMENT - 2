@@ -1,1 +1,10 @@
-
+import pandas as pd
+data={
+    "Student_Name" :["Amit", "Riya" ,"Sourav" ,"Aditya","Rahul"],
+    "Roll_No" : [10,49,42,5,47],
+    "Marks"   : [98,70,92,83,62],
+    "Attendance" : [85,76,83,85,48]
+}
+df=pd.DataFrame(data)
+print("Students who secured marks above 80: ")
+print(df[df["Marks"]>80])
