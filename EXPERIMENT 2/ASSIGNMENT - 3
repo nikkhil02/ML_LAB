@@ -1,1 +1,30 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.datasets import load_wine
 
+wine = load_wine()
+
+df = pd.DataFrame(wine.data, columns=wine.feature_names)
+
+corr = df.corr()
+
+plt.figure(figsize=(12, 8))
+sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f")
+plt.title("Correlation Heatmap")
+plt.tight_layout()
+plt.show()
+corr_values = corr.values.copy()
+for i in range(len(corr_values)):
+    corr_values[i][i] = float("nan")
+
+corr_no_diagram = pd.DataFrame(
+    corr_values,
+    index=corr.index,
+    columns=corr.columns
+)
+pair = corr_no_diagram.stack().idxmax()
+value = corr_no_diagram.stack().max()
+print("Strongest Positive Correlation:")
+print(pair)
+print("Correlation value:", value)
