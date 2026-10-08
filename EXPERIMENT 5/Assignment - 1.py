@@ -4,14 +4,10 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score,precision_score,recall_score,f1_score
 
-data={
-    "Study_Hours":[2,3,5,6,7,9,4,8,11,10],
-    "Attendance":[60,56,55,78,82,86,91,74,83,90],
-    "Pass" : [0,0,0,0,0,1,1,1,1,1]
-}
-df=pd.DataFrame(data)
-X=df[["Study_Hours","Attendance"]]
-y=df["Pass"]
+data= df = pd.read_csv("Student_data.csv")
+
+X = df[["attendance", "study_hours"]]
+y = df["pass"]
 
 X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.2,random_state=42,stratify=y)
 
@@ -26,3 +22,4 @@ print(f"Accuracy : {accuracy_score(y_test,y_pred):.4f}")
 print(f"Precision : {precision_score(y_test,y_pred):.4f}")
 print(f"Recall : {recall_score(y_test,y_pred):.4f}")
 print(f"F1 Score : {f1_score(y_test,y_pred):.4f}")
+
